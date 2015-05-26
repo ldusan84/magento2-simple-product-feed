@@ -9,7 +9,7 @@ use Magento\ImportExport\Model\Export\Adapter\Csv;
 
 class Cron
 {
-	protected $productRepository;
+    protected $productRepository;
     protected $searchCriteriaBuilder;
     protected $filterBuilder;
     protected $csv;
@@ -27,11 +27,11 @@ class Cron
     }
 
 
-	public function export()
-	{
-        $items = $this->getProducts();	
+    public function export()
+    {
+        $items = $this->getProducts();    
         $this->writeToFile($items);
-	}
+    }
 
     public function getProducts()
     {

@@ -29,21 +29,27 @@ class Cron
 
     public function export()
     {
-        $items = $this->getProducts();    
+        $date = $this->getLastWeekDate();
+        $items = $this->getProducts($date);    
         $this->writeToFile($items);
     }
 
-    public function getProducts()
+    protected function getLastWeekDate()
     {
-        $filters = [];
         $now = new \DateTime();
         $interval = new \DateInterval('P1W');
         $lastWeek = $now->sub($interval);
+        return $lastWeek;
+    }
+
+    public function getProducts($date)
+    {
+        $filters = [];
         
         $filters[] = $this->filterBuilder
             ->setField('created_at')
             ->setConditionType('gt')
-            ->setValue($lastWeek->format('Y-m-d H:i:s'))
+            ->setValue($date->format('Y-m-d H:i:s'))
             ->create();
         
         $this->searchCriteriaBuilder->addFilter($filters);
